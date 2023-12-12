@@ -1,0 +1,426 @@
+openapi: 3.0.0
+info:
+  title: Travel Request API
+  version: 1.0.0
+servers:
+- url: https://travel-req-lab.onrender.com/
+tags:
+- name: TravelRequest
+  description: Travel request operations
+- name: ExpenseItem
+  description: Expense item operations
+- name: Account
+  description: Account operations
+paths:
+  /travelRequests:
+    get:
+      tags:
+      - TravelRequest
+      summary: Get all travel requests
+      operationId: travel_requests_get
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/TravelRequest'
+                x-content-type: application/json
+      x-openapi-router-controller: swagger_server.controllers.travel_request_controller
+    post:
+      tags:
+      - TravelRequest
+      summary: Create a new travel request
+      operationId: travel_requests_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TravelRequest'
+        required: true
+      responses:
+        "201":
+          description: Travel request created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TravelRequest'
+        "400":
+          description: Invalid request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      x-openapi-router-controller: swagger_server.controllers.travel_request_controller
+  /travelRequests/{requestName}:
+    get:
+      tags:
+      - TravelRequest
+      summary: Get a travel request by name
+      operationId: travel_requests_request_name_get
+      parameters:
+      - name: requestName
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TravelRequest'
+        "404":
+          description: Travel request not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      x-openapi-router-controller: swagger_server.controllers.travel_request_controller
+    put:
+      tags:
+      - TravelRequest
+      summary: Update a travel request
+      operationId: travel_requests_request_name_put
+      parameters:
+      - name: requestName
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TravelRequest'
+      responses:
+        "200":
+          description: Travel request updated successfully
+        "400":
+          description: Invalid request
+        "404":
+          description: Travel request not found
+      x-openapi-router-controller: swagger_server.controllers.travel_request_controller
+    delete:
+      tags:
+      - TravelRequest
+      summary: Delete a travel request
+      operationId: travel_requests_request_name_delete
+      parameters:
+      - name: requestName
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      responses:
+        "204":
+          description: Travel request deleted successfully
+        "404":
+          description: Travel request not found
+      x-openapi-router-controller: swagger_server.controllers.travel_request_controller
+  /expenseItems:
+    get:
+      tags:
+      - ExpenseItem
+      summary: Get all expense items
+      operationId: expense_items_get
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ExpenseItem'
+                x-content-type: application/json
+      x-openapi-router-controller: swagger_server.controllers.expense_item_controller
+    post:
+      tags:
+      - ExpenseItem
+      summary: Create a new expense item
+      operationId: expense_items_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ExpenseItem'
+        required: true
+      responses:
+        "201":
+          description: Expense item created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExpenseItem'
+        "400":
+          description: Invalid request
+        "500":
+          description: Internal server error
+      x-openapi-router-controller: swagger_server.controllers.expense_item_controller
+  /expenseItems/{name}:
+    get:
+      tags:
+      - ExpenseItem
+      summary: Get an expense item by name
+      operationId: expense_items_name_get
+      parameters:
+      - name: name
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExpenseItem'
+        "404":
+          description: Expense item not found
+      x-openapi-router-controller: swagger_server.controllers.expense_item_controller
+    put:
+      tags:
+      - ExpenseItem
+      summary: Update an expense item
+      operationId: expense_items_name_put
+      parameters:
+      - name: name
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ExpenseItem'
+      responses:
+        "200":
+          description: Expense item updated successfully
+        "400":
+          description: Invalid request
+        "404":
+          description: Expense item not found
+      x-openapi-router-controller: swagger_server.controllers.expense_item_controller
+    delete:
+      tags:
+      - ExpenseItem
+      summary: Delete an expense item
+      operationId: expense_items_name_delete
+      parameters:
+      - name: name
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      responses:
+        "204":
+          description: Expense item deleted successfully
+        "404":
+          description: Expense item not found
+      x-openapi-router-controller: swagger_server.controllers.expense_item_controller
+  /accounts:
+    get:
+      tags:
+      - Account
+      summary: Get all accounts
+      operationId: accounts_get
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Account'
+                x-content-type: application/json
+      x-openapi-router-controller: swagger_server.controllers.account_controller
+    post:
+      tags:
+      - Account
+      summary: Create a new account
+      operationId: accounts_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Account'
+        required: true
+      responses:
+        "201":
+          description: Account created successfully
+        "400":
+          description: Invalid request
+        "500":
+          description: Internal server error
+      x-openapi-router-controller: swagger_server.controllers.account_controller
+  /accounts/{accountName}:
+    get:
+      tags:
+      - Account
+      summary: Get an account
+      operationId: accounts_account_name_get
+      parameters:
+      - name: accountName
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Account'
+        "404":
+          description: Account not found
+      x-openapi-router-controller: swagger_server.controllers.account_controller
+    put:
+      tags:
+      - Account
+      summary: Update an account
+      operationId: accounts_account_name_put
+      parameters:
+      - name: accountName
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Account'
+      responses:
+        "200":
+          description: Account updated successfully
+        "400":
+          description: Invalid request
+        "404":
+          description: Account not found
+      x-openapi-router-controller: swagger_server.controllers.account_controller
+    delete:
+      tags:
+      - Account
+      summary: Delete an account
+      operationId: accounts_account_name_delete
+      parameters:
+      - name: accountName
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      responses:
+        "204":
+          description: Account deleted successfully
+        "404":
+          description: Account not found
+      x-openapi-router-controller: swagger_server.controllers.account_controller
+components:
+  schemas:
+    TravelRequest:
+      type: object
+      properties:
+        requestName:
+          type: string
+        destination:
+          type: string
+        startDate:
+          type: string
+          format: date
+        endDate:
+          type: string
+          format: date
+        duration:
+          type: integer
+        purpose:
+          type: string
+        employee:
+          type: string
+        totalExpenses:
+          type: number
+        accountName:
+          type: string
+      example:
+        requestName: requestName
+        duration: 0
+        endDate: 2000-01-23
+        purpose: purpose
+        accountName: accountName
+        destination: destination
+        totalExpenses: 6.02745618307040320615897144307382404804229736328125
+        employee: employee
+        startDate: 2000-01-23
+    ExpenseItem:
+      type: object
+      properties:
+        name:
+          type: string
+        expenseType:
+          type: string
+        amount:
+          type: number
+        date:
+          type: string
+          format: date
+        requestName:
+          type: string
+      example:
+        date: 2000-01-23
+        requestName: requestName
+        expenseType: expenseType
+        amount: 0.80082819046101150206595775671303272247314453125
+        name: name
+    Account:
+      type: object
+      properties:
+        accountName:
+          type: string
+        accountNumber:
+          type: string
+        accountType:
+          type: string
+        accountStatus:
+          type: string
+      example:
+        accountStatus: accountStatus
+        accountName: accountName
+        accountType: accountType
+        accountNumber: accountNumber
+    Error:
+      type: object
+      properties:
+        message:
+          type: string
+
